@@ -1,0 +1,21 @@
+#include <stdio.h>
+int main()
+{
+	int num,s,y=0;
+	scanf("%d",&num);
+	s=sum;
+	while(s>0)
+	{
+		y=y*10+s%10;
+		s=s/10;
+	}
+	if(y==num)
+	{
+		printf("Yes");
+	}
+	else
+	{
+		printf("No");
+	}
+	return 0;
+}
