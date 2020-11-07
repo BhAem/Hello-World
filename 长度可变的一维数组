@@ -13,7 +13,7 @@ int main()
 	{
 		printf("No enough memory!\n");
 		exit(1);                                // exit (1)and exit(x) x!=0都表示异常退出， exit (0)表示正常退出
-	}
+	}										//12-16的检验NULL很重要
 	printf("Input %d score:", n);	
 	InputArray(p, n);                     /* 输入学生成绩 */          
 	aver = Average(p, n);                 /* 计算平均分 */
