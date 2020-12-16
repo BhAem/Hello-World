@@ -14,7 +14,7 @@ int BinSearch(long num[], long x, int n) /*BinSearch()函数定义*/
 	int  low=0, high=n-1, mid;  /* 区间左端点low置为0，右端点high置为n-1 */
 	while (low <= high)      	  /* 若左端点小于等于右端点，则继续查找 */
 	{
-		mid = (high + low) / 2;  /* 取数据区间的中点 */
+		mid = low + (high - low) / 2;  /* 取数据区间的中点 */
 		if (x > num[mid])   
 			low = mid + 1;   /* 若x>num[mid]，则修改区间的左端点 */
 		else  if (x < num[mid])  
