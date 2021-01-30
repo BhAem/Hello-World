@@ -1,4 +1,4 @@
-//C[n,m]   n在下，m在--->   n!/(m!*(n-m)!)
+//C[n,m]   n在下，m在--->   n!/(m!*(n-m)!)   A[n,m]---> n!/(n-m)!
 long long C(int n, int m)
 {
   if(m<n-m) m = n-m;
