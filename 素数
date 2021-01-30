@@ -1,0 +1,7 @@
+int is_prime(int n)
+{
+  if (n <= 1) return 0;           //第一步：如果n<=1，那么n一定不是素数 
+  int m = floor(sqrt(n) + 0.5);   ////floor(sqrt(n)+0.5)表示求n开平方后不大于它的最大整数，并将它保存在m中，加0.5是防止sqrt函数将某个本应是整数的值变成了xxx.99999这种情况的发生
+    if(n % i == 0) return 0;
+  return 1;
+}
