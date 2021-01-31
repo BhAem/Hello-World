@@ -1,0 +1,76 @@
+UVa1584
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define maxn 111
+int less(const char* s,int p,int q)//p和q打擂台
+{
+   int n=strlen(s);
+   for(int i=0;i<n;i++)
+   {
+      if(s[(p+i)%n]!=s[(q+i)%n])//%n目的是因为前面这个p+i或者q+i有可能超过字符数组的长度
+            return s[(p+i)%n]<s[(q+i)%n];//比较当前字符大小
+   }
+   return 0;//相等的时候
+}
+int main()
+{
+   int T ;
+   char s[maxn];
+   scanf("%d",&T);
+   while(T--)
+   {
+      scanf("%s",s);//读取字符串
+      int ans=0;//当前最小位置
+      int n=strlen(s);
+      for(int i=0;i<n;i++)
+      {
+         if(less(s,i,ans))//i和ans打擂台，ans是擂主
+            ans=i;//说明i更小，更新当前最小位置
+      }
+      for(int i=0;i<n;i++)
+         putchar(s[(ans+i)%n]);
+         putchar('\n');
+   }
+   return 0;
+}
+------------------------------------------------------------------------
+两道题都有圆环的取模，如果你的数组不在乎下标0，并且运用下标0，则用上面的例子，(p+i)%n，即（起始位置+步长）%长度，不用特意加个（长度-1）再+1；
+但如果你在乎下标0，并且不用下标0，那么采用下面的例子，(p + d +n - 1) % n + 1 ，即（起始位置+步长+长度-1）%长度+1，
+区别在于，上面不会触发 长度%长度=0的情况，因为数组下标0的原因，实际长度总是大1，而下面的情况如果不加，会出现长度%长度=0，而0又不采用，因此矛盾。
+------------------------------------------------------------------------
+
+UVa133
+#include<iostream>
+using namespace std;
+int n,k,m ,a[25];
+int go(int p, int d, int t)
+{
+	while (t--){
+		do{ p = (p + d +n - 1) % n + 1; } while (a[p] == 0); // 括号里面加上n,在顺时针-1的时候 不会出现负数的p
+	}
+	return p;
+}
+ 
+ int main()
+{
+	 while (scanf("%d%d%d", &n, &k, &m) == 3 && n)
+	 {
+		 for (int i = 1; i <= n; i++)a[i] = i;
+		 int left = n;//剩余的人
+		 int p1 = n, p2 = 1;
+		 while (left)
+		 {
+			 p1 = go(p1, 1, k);
+			 p2 = go(p2, -1, m);
+			 cout <<  p1; left--;
+			 if (p1 != p2) { cout <<" "<<p2; left--; }
+			 a[p1] = a[p2] = 0;
+			 if (left)
+				 cout <<"," ;
+		 }
+		 cout << endl;
+	 }
+	system("pause");
+	return 0;
+}
