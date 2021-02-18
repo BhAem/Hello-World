@@ -25,47 +25,30 @@ int main()
 }
 
 
-
-效率最高的是 快速线性筛法
-#include <stdio.h>
-#define N 100
+#include<cstdio>
+#include<iostream>
+using namespace std;
 int main()
 {
-    int prime [N]={0},num=0;
-    int isNotPrime[N]={1,1};
-    for(int i=2;i<N;i++)
-    {
-        if(!isNotPrime[i])
-            prime[num++]=i;
-        for(int j=0;j<num&&i*prime[j]<N;j++)
-        {
-            isNotPrime[i*prime[j]]=1;
-            if(!(i%prime[j]))
-              break;
-        }
-    }
-    return 0;
+	int n,q,check[100000001]={0};
+	int prime[1000001],cnt=0;
+	//根据n<=10^8,q<=10^6开对应的数组大小，防止MLE
+	//初始将check数组全部标记为0，标0的是素数，标1的不是素数
+	scanf("%d%d",&n,&q);
+	check[1]=1;//1不是素数
+	for(int i=2;i<=n;i++)
+	{
+		if(!check[i])prime[cnt++]=i;//若当前数i没有被之前的所有数筛掉，表明i是素数，将i添加进素数表prime
+		for(int j=0;j<cnt&&i*prime[j]<100000001;j++)//注意i*prime[j]不要超过n的上限（10^8）
+		{
+			check[i*prime[j]]=1;//将当前素数prime[j]的i倍标记为合数
+			if(i%prime[j]==0)break;//关键步骤：保证每个合数只被筛一次,思想是：我们期望 prime[j] 是这个合数的最小质因数,从而起到线性复杂度的作用
+		}
+	}
+	for(int i=1;i<=q;i++)
+	{
+		scanf("%d",&n);
+		printf("%d\n",prime[n-1]);//由于素数表从0开始存，所以输出时下标应减1
+	}
+	return 0;
 }
-
-或者更大的数
-#include<iostream>  
-using namespace std;      
-const long N = 200000;     
-long prime[N] = {0},num_prime = 0;      
-int isNotPrime[N] = {1, 1};     
-int main()      
-{       
-        for(long i = 2 ; i < N ; i ++)         
-        {              
-        if(! isNotPrime[i])                 
-            prime[num_prime ++]=i;    
-        //关键处1          
-        for(long j = 0 ; j < num_prime && i * prime[j] <  N ; j ++)  
-            {                 
-                isNotPrime[i * prime[j]] = 1;    
-            if( !(i % prime[j] ) )  //关键处2                    
-                break;             
-        }          
-    }          
-    return 0;     
-}    
