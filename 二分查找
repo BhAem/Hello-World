@@ -15,7 +15,7 @@ int BinSearch(long num[], long x, int n) /*BinSearch()函数定义*/
 }
 
 
-while(first < last)
+while(first <= last)
 {
 	int mid = first + (last - first)/2;
 	if(a[mid] < t)
@@ -24,7 +24,7 @@ while(first < last)
 	}
 	else
 	{
-		last = mid;
+		last = mid-1;
 	}
 }
 if (a[first] == t)
