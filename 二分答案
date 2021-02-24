@@ -3,26 +3,24 @@
 //常规做法，风险大
 #include<bits/stdc++.h>
 using namespace std;
-int n,k,ans,a[100005],l=0,r=100000001,mid;
+long long n,m,high[1000000+10];
+long long tmp,left,right;
 int main()
 {
-	cin>>n>>k;
-	for(int i=1;i<=n;i++)
-		cin>>a[i];
-	while(l<=r)
-	{
-		mid=(l+r)/2;
-		int cnt=0;
-		for(int i=1;i<=n;i++)
-			cnt+=a[i]/mid;
-		if(cnt>=k)
-		{
-			ans=mid;
-			l=mid+1;
-		}
-		else r=mid-1;
+	scanf("%lld%lld",&n,&m);
+	for(long long i=1;i<=n;i++){
+		scanf("%lld",&high[i]);
+		if(high[i]>right) right=high[i];
 	}
-	cout<<ans;
+	while(left<=right){
+		int mid=(left+right)/2;
+		tmp=0;
+		for(int i=1;i<=n;i++) 
+		    if(high[i]>mid) tmp+=high[i]-mid;
+		if(tmp<m) right=mid-1;
+		else left=mid+1;
+	}
+	printf("%lld",right);
 	return 0;
 }
 
